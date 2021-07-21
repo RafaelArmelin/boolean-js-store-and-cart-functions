@@ -1,4 +1,4 @@
-const store = {
+const appleStore = {
   location: "London",
   products: [
     {
@@ -109,21 +109,32 @@ function filterExpensiveProducts(products, targetPrice) {
   //console.log("filterExpensiveProducts: ", expensiveProducts);
   return expensiveProducts;
 }
+const expensiveProducts = filterExpensiveProducts(appleStore.products, 1000);
 
-// Example of what it should look like:
-const expensiveProducts = filterExpensiveProducts(store.products, 1000);
-
-// console.log("expensiveProducts: ", expensiveProducts);
 
 // ----- Section -----
 
 // Write a function here...
 // - that takes an array as a parameter
 // - returns an array of products that cost less than £1000
-
 // const cheapProducts = function();
 
-// console.log("cheapProducts: ", cheapProducts);
+
+function filterCheapProducts(products, targetPrice) {
+  const cheapProducts = [];
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+    const price = product.price;
+
+    if (price < targetPrice) {
+      cheapProducts.push(products);
+    }
+  }
+  return cheapProducts;
+}
+const cheapProducts = filterCheapProducts(appleStore.products, 1000);
+
 
 // ----- Section ----- **
 
@@ -131,6 +142,24 @@ const expensiveProducts = filterExpensiveProducts(store.products, 1000);
 // - that takes an array as a parameter
 // - returns an array of products that have an incoming delivery
 // const productsThatNeedToBeReceived = function();
+
+function incomingDelivery(products){
+  const productsThatNeedToBeReceived = [];
+
+  for (let i = 0; i < products.length; i++){
+    const product = products[i];
+    const deliveryIncoming = product.stock.incomingDelivery;
+
+    if(deliveryIncoming){
+      productsThatNeedToBeReceived.push(products);
+    }
+
+  }
+  return productsThatNeedToBeReceived;
+}
+const productsThatNeedToBeReceived = incomingDelivery(appleStore.products)
+
+// console.log("products to receive: ", productsThatNeedToBeReceived);
 
 // ----- Section -----
 
@@ -155,6 +184,23 @@ const expensiveProducts = filterExpensiveProducts(store.products, 1000);
 // - returns an array of products of the type "tablet"
 
 // const tablets = function();
+
+// function findTablet(products) {
+//   let tabletFound = [];
+
+//   for (let i = 0; i < products.length; i++) {
+//     const type = products[i].type;
+
+//     if (type === "tablet") {
+//       tabletFound.push(products);
+//     }
+//   }
+//   return tabletFound;
+// }
+
+// const tablets = findTablet(store.products);
+
+// console.log("tablet array: ", tablets);
 
 // ----- Section -----
 
@@ -185,7 +231,7 @@ function findImac(products) {
   return imacFound;
 }
 
-const result = findImac(store.products);
+const result = findImac(appleStore.products);
 // console.log(result);
 
 // ----- Section -----
@@ -194,7 +240,24 @@ const result = findImac(store.products);
 // - that takes an array as a parameter
 // - returns an object that represents an "iPhone 12"
 
-// const iPhone12 = function();
+function findIPhone12(products) {
+  let foundItem = null;
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+    const name = product.name;
+
+    if (name === "iPhone 12") {
+      foundItem = product;
+    }
+  }
+
+  return foundItem;
+}
+
+const iPhone12 = findIPhone12(appleStore.products);
+
+// console.log("iPhone12: ", iPhone12);
 
 // ----- Section -----
 
@@ -202,7 +265,26 @@ const result = findImac(store.products);
 // - that takes an array as a parameter
 // - returns an object that represents an "iPad Mini"
 
-// const iPadMini = function();
+function findIpadMini(appleProducts) {
+  // console.log("Inside findIpadMini: ", appleProducts);
+
+  let ipadMini = null;
+
+  for (let i = 0; i < appleProducts.length; i++) {
+    const product = appleProducts[i];
+    const name = product.name;
+
+    if (name === "iPad mini") {
+      ipadMini = product;
+    }
+  }
+
+  return ipadMini;
+}
+
+const iPadMini = findIpadMini(appleStore.products);
+
+// console.log("iPadMini: ", iPadMini);
 
 // ----- CHALLENGE -----
 
@@ -250,12 +332,80 @@ const cart = [
   }
 ];
 
+const jeepStore = {
+  location: "London",
+  products: [
+    {
+      name: "Roof Rack",
+      type: "accessory",
+      stock: {
+        incomingDelivery: false,
+        stock: 350
+      },
+      price: 3500
+    },
+    {
+      name: "Spare Tyre",
+      type: "accessory",
+      stock: {
+        incomingDelivery: true,
+        stock: 100
+      },
+      price: 800
+    },
+    {
+      name: "Jeep Wrangler Unlimited Polar",
+      type: "car",
+      stock: {
+        incomingDelivery: true,
+        stock: 40
+      },
+      price: 37500
+    },
+    {
+      name: "Jeep Wrangler Unlimited Dragon",
+      type: "car",
+      stock: {
+        incomingDelivery: false,
+        stock: 120
+      },
+      price: 69000
+    },
+    {
+      name: "Jeep Grand Cherokee",
+      type: "car",
+      stock: {
+        incomingDelivery: false,
+        stock: 250
+      },
+      price: 52000
+    }
+  ]
+};
+
 // ----- Section ----- **
 
 // Write a function here...
 // - that takes an array as a parameter
 // - returns a number that rerpresents the total of the items in the cart
 // const totalPrice = function()
+
+function totalPrice(cart) {
+  let total = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i];
+    const price = item.product.price;
+    const quantity = item.quantity;
+
+    total = total + (price * quantity);
+  }
+  return total;
+  console.log(total);
+}
+
+const totalPriceInCart = totalPrice(cart);
+console.log("Total Price of the Cart: ", totalPriceInCart);
 
 // ----- Section ----- **
 
@@ -265,15 +415,21 @@ const cart = [
 
 // const quantityOfItemsInCart = function()
 
-function countItemsInCart(products) {
-  let countItemsInCart = null;
+function countItemsInCart(cart) {
+  let total = 0;
 
   for (let i = 0; i < cart.length; i++) {
-    const quantity = cart[i].quantity;
+    const item = cart[i];
+    const quantity = item.quantity;
+
+    total = total + quantity;
   }
-  return countItemsInCart;
-  console.log(quantity);
+  return total;
+  console.log(total);
 }
+
+const totalQuantityInCart = countItemsInCart(cart);
+console.log("Total Quantity in Cart: ", totalQuantityInCart);
 
 // ----- Section ----- **
 
@@ -284,6 +440,19 @@ function countItemsInCart(products) {
 
 // const recieptRow = function()
 
+function productInfo(cart){
+    
+    const name = cart.product.name;
+    const type = cart.product.type;
+    const price = cart.product.price;
+    const quantity = cart.quantity;
+    const total = price * quantity;
+
+  return `Name: ${name} | Type: ${type} - Price: £${price} x Quantity: ${quantity} || Total: ${total} \n`;
+}
+const receiptRow = productInfo(cart[0]);
+console.log("Product Info: ", receiptRow);
+
 // ----- Section ----- **
 
 // Write a function here...
@@ -291,6 +460,57 @@ function countItemsInCart(products) {
 // - returns a string with the variosu rows on the reciept
 // TIP: Re-use the above function for "receiptRow"
 
-// const receiptMessage = function()
+function receiptInfo(cart){
 
-// console.log("receiptMessage: ", receiptMessage)
+  let productsList = "";
+
+  for (let i = 0; i < cart.length; i++){
+
+    productsList = productsList + productInfo(cart[i]);
+
+  }
+  return productsList;
+}
+
+const receiptMessage = receiptInfo(cart);
+console.log("Receipt Message");
+console.log(receiptInfo(cart));
+
+
+
+
+
+// FIND PRODUCT FUNCTION
+
+// function findProduct(products, targetProduct) {
+//   console.log("Inside findProduct: ", products, targetProduct);
+
+//   let foundProduct = null;
+
+//   for (let i = 0; i < products.length; i++) {
+//     const product = products[i];
+//     const name = product.name;
+
+//     if (name === targetProduct) {
+//       foundProduct = product;
+//       break;
+//     }
+//   }
+
+//   return foundProduct;
+// }
+
+// const iPadMini = findProduct(appleStore.products, "iPad mini");
+
+// console.log("iPadMini: ", iPadMini);
+
+// const iPhone12 = findProduct(appleStore.products, "iPhone 12");
+
+// console.log("iPhone12: ", iPhone12);
+
+// const jeepWranglerPolar = findProduct(
+//   jeepStore.products,
+//   "Jeep Wrangler Unlimited Polar"
+// );
+
+// console.log("jeepWranglerPolar: ", jeepWranglerPolar);
